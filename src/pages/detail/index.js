@@ -4,12 +4,13 @@ import Hero from '../../components/hero';
 
 // Import useParams
 // Import Navigate
+import { useParams, Navigate } from 'react-router-dom';
 
 const PetDetailsPage = () => {
   const [data, setData] = useState();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  const id = '51322435'; // <--- Update me!
+  const { id } = useParams(); // <--- Update me!
 
   useEffect(() => {
     async function getPetsData() {
@@ -32,6 +33,7 @@ const PetDetailsPage = () => {
         <h3>Loading...</h3>
       ) : error ? (
         <div>
+          <Navigate to={'/pet-details-not-found'} />
           {/* Redirect to /pet-details-not-found if there was an error! */}
         </div>
       ) : (
@@ -40,14 +42,14 @@ const PetDetailsPage = () => {
             image={data.photos[1]?.full || 'https://i.imgur.com/aEcJUFK.png'}
             displayText={`Meet ${data.name}`}
           />
-          <div className="pet-detail">
-            <div className="pet-image-container">
+          <div className='pet-detail'>
+            <div className='pet-image-container'>
               <img
-                className="pet-image"
+                className='pet-image'
                 src={
                   data.photos[0]?.medium || 'https://i.imgur.com/aEcJUFK.png'
                 }
-                alt=""
+                alt=''
               />
             </div>
             <div>
